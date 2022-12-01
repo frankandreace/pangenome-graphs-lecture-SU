@@ -1,12 +1,16 @@
 # 2022-pangenome-graphs-intro
 
-Lecture given at the CGSI, UCLA, July 22nd 2022.
+Practical session for the Introduction to Pangenomics class given at Sorbonne University in Paris, December 1st 2022.
 
-Slides: https://docs.google.com/presentation/d/1KBckpDnKlDZpvRktt_RSAxUCTcOA9n83ERkDqNo3JKs/edit?usp=sharing
+Modification by Francesco Andreace of the lecture given at the CGSI, UCLA, July 22nd 2022 by Rayan Chiki. 
+
+Francesco's slides: .
+
+Rayan's Slides: https://docs.google.com/presentation/d/1KBckpDnKlDZpvRktt_RSAxUCTcOA9n83ERkDqNo3JKs/edit?usp=sharing
 
 ## Rationale
 
-We'll show how some common pangenome graphs can be constructed in practice, on a simple example. 
+We'll see how some common pangenome graphs can be constructed in practice, on a simple example. 
 
 ## Data
 
@@ -26,12 +30,17 @@ Simplify graph by removing small bubbles using [gfatools](https://github.com/lh3
 
     ../tools/gfatools asm -b 100 -u two_ecolis.unitigs.gfa > two_ecolis.unitigs.bu.gfa
 
-Trying a larger k value (k=300):
+Trying a larger k value (k=127, k=319):
 
-    ../tools/bcalm-k320 -in ../data/two_ecolis.fasta -kmer-size 300 -abundance-min 1
+    ../tools/bcalm-k320 -in ../data/two_ecolis.fasta -kmer-size SIZE -abundance-min 1
+
+Now visualize the three graphs. 
+What kind of information can we obtain by just visualizing the pangenome of these 2 strains? 
+As the k-mer lenght grows, what does it change in these graphs?
 
 ## Variation graph
 
+(This is not the pggb standard pipeline, but for our goal this is good enough).
 Create a raw pangenome graph using minimap2 + [seqwish](https://github.com/ekg/seqwish):
 
     minimap2 -c -X ../data/two_ecolis.fasta ../data/two_ecolis.fasta > two_ecolis.paf
@@ -46,13 +55,18 @@ Further simplify by removing bubbles:
     gfatools asm -b 1000 -u two_ecolis.gfa > two_ecolis.bu.gfa
     gfatools asm -b 1000 -u two_ecolis.smooth.gfa > two_ecolis.smooth.bu.gfa
 
-However, after discussions with Erik Garrison, it would be better to just run `pggb` instead of `seqwish`+`smoothxg`, to automatically tweaks the parameters of `smoothxg`.
+As specified at the beginninh, it would be better to just run `pggb` instead of `seqwish`+`smoothxg`, to automatically tweaks the parameters of `smoothxg`.
+
+Now visualize the graph. Is it different from dbgs?
+
 
 ## Minigraph
 
 Construct by aligning o157 on the K12 reference using [minigraph](https://github.com/lh3/minigraph):
 
     ../tools/minigraph -cxggs -t8 ../data/k12.fasta ../data/o157.fasta > o157_on_k12.gfa
+
+Now visualize the graph. Is it different from dbgs and seqwish vg?
 
 ## Minimizer-space de Bruijn graphs
 
@@ -67,6 +81,14 @@ Compact the (minimizer-space) de Bruijn graph:
 Reincorporate bases in mdBG:
 
     ../tools/to_basespace -g graph-k10-d0.001-l12.u.gfa -s graph-k10-d0.001-l12
+
+Let's have a look at the graph. Can you distinguish the 2 genomes?
+
+## DISCUSSION
+
+Let's discuss about what these graph show.
+Did you expect these results from the theory class?
+Does pangenomics seems usefult to you?
 
 ## Commands for demo
 
