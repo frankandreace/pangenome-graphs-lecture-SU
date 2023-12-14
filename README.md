@@ -2,9 +2,7 @@
 
 Practical session for the Introduction to Pangenomics class given at Sorbonne University in Paris, December 1st 2022.
 
-Modification by Francesco Andreace of the lecture given at the CGSI, UCLA, July 22nd 2022 by Rayan Chiki. 
-
-Francesco's slides: https://docs.google.com/presentation/d/1cL8mZ-7dCFlsbqv0LePThcOa6XKULoQwgfF8bWOeoMQ/edit?usp=sharing
+From the lecture given at the CGSI, UCLA, July 22nd 2022 by Rayan Chiki. 
 
 Rayan's Slides: https://docs.google.com/presentation/d/1KBckpDnKlDZpvRktt_RSAxUCTcOA9n83ERkDqNo3JKs/edit?usp=sharing
 
